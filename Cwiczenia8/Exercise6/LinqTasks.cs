@@ -173,7 +173,9 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Emp> Task2()
         {
-            IEnumerable<Emp> result = null;
+            IEnumerable<Emp> result = Emps
+                .Where(emp => emp is { Job: "Frontend programmer", Salary: > 100 })
+                .OrderByDescending(emp => emp.Ename);
             return result;
         }
 
