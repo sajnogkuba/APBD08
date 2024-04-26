@@ -232,7 +232,11 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task7()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.GroupBy(emp => emp.Job).Select(e => new
+            {
+                Praca=e.Key,
+                LiczbaPracownikow=e.Count()
+            });
             return result;
         }
 
