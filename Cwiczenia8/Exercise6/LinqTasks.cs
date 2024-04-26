@@ -331,7 +331,11 @@ namespace Exercise6
         /// </summary>
         public static int Task13(int[] arr)
         {
-            int result = 0;
+            int result = arr
+                    .GroupBy(i => i)
+                    .Where(group => group.Count() % 2 == 1)
+                    .Select(group => group.Key)
+                    .First();
             //result=
             return result;
         }
@@ -342,7 +346,12 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Dept> Task14()
         {
-            IEnumerable<Dept> result = null;
+            IEnumerable<Dept> result = Depts.GroupJoin(Emps,
+                    dept => dept.Deptno,
+                    emp => emp.Deptno,
+                    (dept, empGroup) => new { Department = dept, EmpCount = empGroup.Count() })
+                .Where(x => x.EmpCount is 0 or 5)
+                .Select(x => x.Department); 
             //result =
             return result;
         }
