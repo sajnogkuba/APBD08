@@ -194,7 +194,7 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Emp> Task4()
         {
-            IEnumerable<Emp> result = null;
+            IEnumerable<Emp> result = Emps.Where(emp => emp.Salary == Emps.Select(emp2 => emp2.Salary).Max());
             return result;
         }
 
