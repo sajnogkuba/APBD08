@@ -203,7 +203,11 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task5()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.Select(emp => new
+            {
+                Nazwisko=emp.Ename,
+                Praca=emp.Job
+            });
             return result;
         }
 
