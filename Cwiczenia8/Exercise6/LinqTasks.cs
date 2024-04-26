@@ -256,7 +256,7 @@ namespace Exercise6
         /// </summary>
         public static Emp Task9()
         {
-            Emp result = null;
+            Emp result = Emps.First(emp => emp.Job == "Frontend programmer");
             return result;
         }
 
@@ -267,7 +267,21 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task10()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps.Select(emp => new
+            {
+                emp.Ename,
+                Job = (string?)emp.Job,
+                emp.HireDate
+            }).Union<object>(new[]
+            {
+                new
+                {
+                    Ename = "Brak wartości",
+                    Job = (string?) null,
+                    HireDate = (DateTime?) null
+                }
+            });
+
             return result;
         }
 
@@ -284,7 +298,14 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<object> Task11()
         {
-            IEnumerable<object> result = null;
+            IEnumerable<object> result = Emps
+                .GroupBy(emp => emp.Deptno)
+                .Where(group => group.Count() > 1)
+                .Select(e => new
+                {
+                    name=Depts.First(dept => dept.Deptno == e.Key).Dname.ToUpper(),
+                    numOfEmployees=e.Count()
+                });
             return result;
         }
 
@@ -297,7 +318,7 @@ namespace Exercise6
         /// </summary>
         public static IEnumerable<Emp> Task12()
         {
-            IEnumerable<Emp> result = null;
+            IEnumerable<Emp> result = Emps.TaskMyExtension();
             return result;
         }
 
@@ -330,5 +351,12 @@ namespace Exercise6
     public static class CustomExtensionMethods
     {
         //Put your extension methods here
+        public static IEnumerable<Emp> TaskMyExtension(this IEnumerable<Emp> emps)
+        {
+            return emps
+                .Where(emp1 => emps.Any(emp2 => emp2.Mgr?.Empno == emp1.Empno))
+                .OrderBy(e => e.Ename)
+                .ThenByDescending(e => e.Salary);
+        }
     }
 }

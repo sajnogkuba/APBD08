@@ -1,1 +1,3 @@
-﻿Console.WriteLine("Cwiczenia rozwiazujemy w pliku LinqTasks.cs");
+﻿using Exercise6;
+
+Console.WriteLine("Cwiczenia rozwiazujemy w pliku LinqTasks.cs");
