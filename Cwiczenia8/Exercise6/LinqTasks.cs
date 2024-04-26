@@ -185,7 +185,7 @@ namespace Exercise6
         /// </summary>
         public static int Task3()
         {
-            int result = 0;
+            int result = Emps.Select(emp => emp.Salary).Max();
             return result;
         }
 
